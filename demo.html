@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39; &#39;wasm-unsafe-eval&#39; blob:; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data: blob:; media-src &#39;self&#39; blob:; font-src &#39;self&#39; data:; connect-src &#39;self&#39; blob: data:; worker-src &#39;self&#39; blob:; child-src &#39;self&#39; blob:; form-action &#39;none&#39;; base-uri &#39;none&#39;">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Studio — generate &amp; decode, in-browser — NavigatorsLab Tools</title>
+  <meta name="description" content="Generate QR codes and decode QR images entirely in your browser — text, URLs, colors, PNG export. No uploads." />
+  <meta name="theme-color" content="#0b0f17" />
+  <meta property="og:title" content="QR Studio — generate & decode, in-browser — NavigatorsLab Tools" />
+  <meta property="og:description" content="Generate QR codes and decode QR images entirely in your browser. No uploads." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://navigatorslab.com/tools/og-qr.png" />
+  <meta property="og:url" content="https://navigatorslab.com/tools/qr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QR Studio — generate & decode, in-browser" />
+  <meta name="twitter:description" content="Generate QR codes and decode QR images entirely in your browser. No uploads." />
+  <meta name="twitter:image" content="https://navigatorslab.com/tools/og-qr.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔳</text></svg>" />
+  <script type="module" crossorigin src="./assets/qr-IqoEPjid.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="./assets/dom-CdRtKgMN.js">
+  <link rel="modulepreload" crossorigin href="./assets/_commonjsHelpers-Cpj98o6Y.js">
+  <link rel="modulepreload" crossorigin href="./assets/agent-BXrVPJYt.js">
+  <link rel="stylesheet" crossorigin href="./assets/styles-DxO-VUmL.css"></head>
+<body>
+  <header class="nl-top">
+    <a class="brand" href="./index.html">🧭 NavigatorsLab <b>Tools</b></a>
+    <span class="spacer"></span>
+    <a class="plain" href="./index.html">← All tools</a>
+  </header>
+
+  <main class="wrap">
+    <h1>🔳 QR Studio</h1>
+    <p class="sub">
+      Make QR codes from text or links, and read QR codes out of images — both fully in your browser.
+      The decoder runs on-device (jsQR), so a Wi-Fi password, a tracking link, or anything else you scan never leaves your machine.
+    </p>
+
+    <div class="tabs">
+      <button id="tabMake" class="tab on" type="button">Generate</button>
+      <button id="tabRead" class="tab" type="button">Decode an image</button>
+    </div>
+
+    <!-- ============ generate ============ -->
+    <section id="makePanel">
+      <div class="panel">
+        <label for="qrText">Text or URL to encode</label>
+        <textarea id="qrText" rows="3" placeholder="https://example.com — or use a preset below"></textarea>
+        <div class="row" style="margin-top:8px">
+          <label>Presets</label>
+          <button class="btn" id="preWifi" type="button">📶 Wi-Fi</button>
+          <button class="btn" id="preUrl" type="button">🔗 URL</button>
+          <button class="btn" id="preMail" type="button">✉️ Email</button>
+          <button class="btn" id="prePhone" type="button">📞 Phone</button>
+          <button class="btn" id="preVcard" type="button">👤 Contact card</button>
+        </div>
+        <div class="row" id="wifiFields" hidden style="margin-top:8px">
+          <input type="text" id="wifiS" placeholder="Network name (SSID)" aria-label="Wi-Fi network name" style="width:170px" />
+          <input type="password" id="wifiP" placeholder="Password" aria-label="Wi-Fi password" style="width:150px" />
+          <select id="wifiT" aria-label="Wi-Fi security">
+            <option value="WPA">WPA/WPA2/WPA3</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">Open</option>
+          </select>
+          <label><input type="checkbox" id="wifiH" /> hidden</label>
+          <button class="btn" id="wifiMake" type="button">Make Wi-Fi QR</button>
+        </div>
+
+        <div class="row3">
+          <div>
+            <label for="qrSize">Size (px)</label>
+            <select id="qrSize" aria-label="Output pixel size">
+              <option value="256">256</option>
+              <option value="384" selected>384</option>
+              <option value="512">512</option>
+              <option value="1024">1024</option>
+            </select>
+          </div>
+          <div>
+            <label for="qrFg">Foreground</label>
+            <input type="color" id="qrFg" value="#0b0f17" />
+          </div>
+          <div>
+            <label for="qrBg">Background</label>
+            <input type="color" id="qrBg" value="#ffffff" />
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="qrQuiet" checked /> white quiet zone (recommended for scanners)</label>
+        <label>Error correction
+          <select id="qrEc" aria-label="Error correction level">
+            <option value="L">L — smallest</option>
+            <option value="M" selected>M — standard</option>
+            <option value="Q">Q — robust</option>
+            <option value="H">H — most robust</option>
+          </select>
+        </label>
+
+        <div class="actions">
+          <button id="qrMake" class="btn primary">Generate QR</button>
+          <button id="qrPng" class="btn" disabled>Download PNG</button>
+          <button id="qrSvgDl" class="btn" disabled>Download SVG</button>
+        </div>
+        <div id="qrOut" class="qr-out" hidden>
+          <canvas id="qrCanvas" width="384" height="384" aria-label="Generated QR code"></canvas>
+          <p class="meta" id="qrMeta"></p>
+        </div>
+        <p id="qrStat" class="stat"></p>
+      </div>
+    </section>
+
+    <!-- ============ decode ============ -->
+    <section id="readPanel" hidden>
+      <div class="panel">
+        <div id="qrDz" class="dz">
+          <b>Drop a QR image</b><span class="meta"> or click to pick — PNG / JPG / WebP, decoded on-device</span>
+        </div>
+        <div id="qrResult" hidden>
+          <div class="row2">
+            <canvas id="srcCanvas" class="src-view" aria-label="Source image"></canvas>
+            <div>
+              <label>Decoded content</label>
+              <textarea id="qrData" rows="6" readonly></textarea>
+              <div class="actions">
+                <button id="qrCopy" class="btn">Copy</button>
+                <button id="qrOpen" class="btn" hidden>Open link ↗</button>
+              </div>
+              <p class="meta" id="qrReadMeta"></p>
+            </div>
+          </div>
+        </div>
+        <p id="qrReadStat" class="stat"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="nl-foot">
+    <span>🔒 runs entirely in your browser — nothing is uploaded, stored, or logged</span>
+    <span>·</span>
+    <a href="https://github.com/Kayforkind/NavigatorsLab-Tools">GitHub</a>
+    <span>·</span>
+    <a href="./index.html">All tools</a>
+  </footer>
+</body>
+</html>
