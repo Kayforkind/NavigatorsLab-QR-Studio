@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Studio — free, in your browser — NavigatorsLab</title>
+<meta name="description" content="Generate QR codes and decode QR images — no site sees them Free, open-source (MIT), 100% on-device. No uploads, no accounts. Runs right here and on navigatorslab.com.">
+<meta property="og:title" content="QR Studio — NavigatorsLab Tools">
+<meta property="og:description" content="Generate QR codes and decode QR images — no site sees them">
+<meta property="og:image" content="./og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔳</text></svg>">
+<style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(900px 500px at 15% -10%, rgba(56,189,248,.16), transparent 60%),
+                        radial-gradient(800px 500px at 110% 10%, rgba(167,139,250,.14), transparent 55%), #0b0f17;
+      color: #e7ecf5; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55; }
+    main { max-width: 960px; margin: 0 auto; padding: 48px 20px 64px; }
+    .tile { width: 76px; height: 76px; display: grid; place-items: center; font-size: 38px;
+      border-radius: 20px; background: linear-gradient(135deg, rgba(56,189,248,.25), rgba(167,139,250,.25));
+      border: 1px solid rgba(148,163,184,.25); }
+    h1 { margin: 18px 0 6px; font-size: 34px; letter-spacing: -0.5px; }
+    .tag { color: #9fb0c8; font-size: 18px; margin: 0 0 18px; }
+    .badges span { display: inline-block; margin: 0 8px 8px 0; padding: 4px 12px; border-radius: 999px;
+      font-size: 13px; color: #cbd5e1; border: 1px solid rgba(148,163,184,.3); background: rgba(148,163,184,.08); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0 8px; }
+    .btn { display: inline-block; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 700; }
+    .primary { color: #06121f; background: linear-gradient(135deg, #67e8f9, #a78bfa); }
+    .ghost { color: #e7ecf5; border: 1px solid rgba(148,163,184,.4); }
+    .shot { width: 100%; border-radius: 14px; border: 1px solid rgba(148,163,184,.25); margin: 26px 0 6px; }
+    .cap { color: #64748b; font-size: 13px; text-align: center; margin: 0 0 30px; }
+    h2 { font-size: 22px; margin: 40px 0 12px; }
+    .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; padding: 0; margin: 0; list-style: none; }
+    .feats li { padding: 14px 16px; border-radius: 12px; background: rgba(148,163,184,.07);
+      border: 1px solid rgba(148,163,184,.18); font-size: 15px; }
+    ol.steps { padding-left: 20px; color: #cdd8e6; }
+    ol.steps li { margin: 10px 0; }
+    ol.steps b { color: #e7ecf5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+    .grid a { display: block; padding: 12px 14px; border-radius: 12px; text-decoration: none;
+      color: #cdd8e6; background: rgba(148,163,184,.06); border: 1px solid rgba(148,163,184,.16); font-size: 14px; }
+    .grid a:hover { border-color: rgba(103,232,249,.5); color: #e7ecf5; }
+    .grid a b { display: block; color: #e7ecf5; font-size: 15px; margin-bottom: 2px; }
+    .note { border-left: 3px solid #67e8f9; padding: 10px 16px; background: rgba(56,189,248,.07);
+      border-radius: 0 10px 10px 0; color: #cdd8e6; }
+    footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid rgba(148,163,184,.18);
+      color: #64748b; font-size: 14px; }
+    footer a { color: #94a3b8; }
+    a { color: #7dd3fc; }
+    .io-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 18px 0 12px; }
+    .io-card { padding: 14px 16px; border-radius: 12px; background: rgba(9,13,22,.9); border: 1px solid rgba(148,163,184,.22); }
+    .io-card small { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; color: #2dd4bf; }
+    .io-card b { display: block; color: #f8fafc; font-size: 15px; margin-bottom: 4px; }
+    .io-card span { color: #94a3b8; font-size: 13px; }
+    .io-proof { background: #060911; border: 1px solid rgba(45,212,191,.35); border-radius: 10px; padding: 11px 14px; font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: #2dd4bf; overflow-x: auto; margin-bottom: 24px; }
+    .vid-wrap { width: 100%; aspect-ratio: 16 / 9; background: #05070d; border-radius: 14px; overflow: hidden; border: 1px solid rgba(94,234,212,.35); margin: 22px 0 8px; }
+    .vid-wrap video { width: 100%; height: 100%; object-fit: contain; display: block; background: #05070d; }
+</style>
+</head>
+<body>
+<main>
+  <div class="tile" aria-hidden="true">🔳</div>
+  <h1>QR Studio</h1>
+  <p class="tag">Generate QR codes and decode QR images — no site sees them</p>
+  <div class="badges"><span>🆓 free &amp; open source (MIT)</span><span>🔒 nothing is uploaded</span><span>📶 works offline</span><span>📱 mobile friendly</span></div>
+  <div class="cta">
+    <a class="btn primary" href="./demo.html">Run it right here &rarr;</a>
+    <a class="btn ghost" href="https://navigatorslab.com/QR-Studio">navigatorslab.com/QR-Studio</a>
+    <a class="btn ghost" href="https://navigatorslab.com/tools/videos/notebooklm-overview.mp4">🎬 Watch Full Suite Usage Guide</a>
+  </div>
+
+  <h2>🔊 Narrated Step-by-Step Usage Tutorial Video (38s)</h2>
+  <div class="vid-wrap">
+    <video controls playsinline preload="metadata" poster="./poster.jpg" data-aspect="horizontal">
+      <source src="./demo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <h2>📖 Detailed Step-by-Step User Guide</h2>
+  <div class="io-grid">
+    <div class="io-card"><small>Step 1: Type Text/URL or Pick Wi-Fi, vCard, or Email Preset · [Payload Input (#qrText) & Presets (#preWifi)]</small><b>Enter any URL or text into `#qrText`, or click a structured preset button (**Wi-Fi `#preWifi`**, **vCard**, **Email**, **SMS**) to open its dedicated fields.</b><span>✓ Result: Structured payload fields appear (and special characters like `;` and `\` in Wi-Fi passwords are escaped automatically).</span></div>
+    <div class="io-card"><small>Step 2: Apply Preset & Tune Error Correction (L / M / Q / H) · [Wi-Fi Builder (#wifiMake) & Error Correction (#ec)]</small><b>Fill the preset fields (e.g., SSID `#wifiS` and Password `#wifiP`), click **Apply (`#wifiMake`)**, select Error Correction (`L`, `M`, `Q`, or `H`), and click **Generate QR (`#qrMake`)**.</b><span>✓ Result: Crisp QR matrix renders immediately with module count and error-correction metadata (`#qrMeta`).</span></div>
+    <div class="io-card"><small>Step 3: Export Crisp Vector SVG or High-DPI PNG · [Export PNG (#qrPng) & SVG (#qrSvg)]</small><b>Click **Download PNG (`#qrPng`)** for digital use or **Download SVG (`#qrSvg`)** for vector print layout in Illustrator, Figma, or InDesign.</b><span>✓ Result: Direct-payload PNG or vector SVG saved locally (never expires, zero bit.ly/redirect middlemen).</span></div>
+    <div class="io-card"><small>Step 4: Switch to Decode Tab to Read Any QR Image Locally · [Decode Tab (#tabRead) & QR Dropzone (#qrDz)]</small><b>Click **Decode QR (`#tabRead`)** and drop an image or paste a screenshot (`Ctrl+V`) onto `#qrDz`. `jsQR` decodes the raw payload string into `#qrData`.</b><span>✓ Result: Inspect suspicious QR codes safely without opening untrusted URLs on your phone.</span></div>
+  </div>
+
+  <h2>🎛️ UI Controls &amp; Shortcuts Reference</h2>
+  <ul class="feats">
+      <li><code>Payload Box (`#qrText`) & Generate (`#qrMake`)</code> — Encodes any text, URL, or preset string into a QR matrix.</li>
+      <li><code>Presets (`#preWifi`, vCard, Email)</code> — Builds standards-compliant `WIFI:T:WPA;...` and `BEGIN:VCARD` payloads with RFC escaping.</li>
+      <li><code>Export PNG (`#qrPng`) & SVG (`#qrSvg`)</code> — Saves high-resolution raster PNG or true vector SVG files.</li>
+      <li><code>Decode Tab (`#tabRead` + `#qrDz`)</code> — Decodes QR images locally via bundled `jsQR` without a camera or network request.</li>
+  </ul>
+
+  <h2>💡 Pro Tips &amp; Real-World Workflows</h2>
+  <ul class="feats">
+      <li>Always choose **SVG** when sending a QR code to a print shop for flyers, business cards, or banners so the module edges stay razor-sharp at any size.</li>
+      <li>Use Error Correction level **Q (25%)** or **H (30%)** for printed stickers outdoors so the code still scans even if scratched or smudged.</li>
+      <li>You can deep-link directly to a generated QR code via URL parameters: `qr.html?text=https://navigatorslab.com&ec=H`.</li>
+  </ul>
+
+  <h2>⚡ Concrete Example: Input → Engine → Output</h2>
+  <div class="io-grid">
+    <div class="io-card">
+      <small>1 · Raw Input</small>
+      <b>Office Wi-Fi Credentials / vCard / URL</b>
+      <span>SSID: 'NavLab-Guest', Pass: 'ultra-secret!2026', WPA2 — or drop a screenshot of an unknown QR code</span>
+    </div>
+    <div class="io-card">
+      <small>2 · On-Device Engine</small>
+      <b>Spec-escaped WIFI:S:... payload encoded via qrcode-generator (EC Level M/H) or decoded locally via bundled jsQR</b>
+      <span>Runs locally under strict Content-Security-Policy with zero network uploads.</span>
+    </div>
+    <div class="io-card">
+      <small>3 · Verified Output</small>
+      <b>wifi-qr.svg (Vector) & wifi-qr.png</b>
+      <span>Crisp vector SVG + PNG with custom palette & quiet zone; encode → export → decode round-trip 100% verified</span>
+    </div>
+  </div>
+  <div class="io-proof">Payload: WIFI:T:WPA;S:NavLab-Guest;P:ultra-secret\!2026;; | Round-trip decode: EXACT [OK]</div>
+
+  <img class="shot" src="./shot.png" alt="QR Studio in action">
+  <p class="cap">QR Studio mid-task — this demo runs entirely on this page's own GitHub Pages site.</p>
+
+  <h2>What it does</h2>
+  <ul class="feats">
+      <li>Generate QR codes with Wi-Fi (spec-escaped), URL, email, phone and vCard presets</li>
+      <li>Selectable error-correction, custom colors, spec quiet zone; PNG + vector SVG export</li>
+      <li>Decode QRs from images too â€” nothing is sent anywhere</li>
+  </ul>
+
+  <h2>How it works</h2>
+  <ol class="steps">
+      <li><b>Step 1.</b> Type text or pick the Wi-Fi / URL / vCard preset</li>
+      <li><b>Step 2.</b> Tune colors and error correction</li>
+      <li><b>Step 3.</b> Export PNG or SVG â€” or decode an existing QR image</li>
+  </ol>
+
+  <div class="note"><b>Private by design.</b> Files are processed on <em>your</em> device and never
+  sent to any server. No accounts, no tracking, no cookies, nothing retained. Prefer the hub?
+  The same tool lives at <a href="https://navigatorslab.com/tools/qr.html">https://navigatorslab.com/tools/qr.html</a>.</div>
+
+  <h2>The suite: 24 projects, one zero-upload promise</h2>
+  <div class="grid">
+      <a href="https://navigatorslab.com/tools/exif.html"><b>🛡 Photo Privacy Kit</b>Strip GPS, camera model and timestamps before posting</a>
+      <a href="https://navigatorslab.com/tools/breachcheck.html"><b>🔐 Password Breach Checker</b>Has this password been breached? — it never leaves your tab</a>
+      <a href="https://navigatorslab.com/tools/metadata.html"><b>🔍 Metadata & Hidden-Data Checker</b>See what's really inside a file — then strip it</a>
+      <a href="https://navigatorslab.com/tools/shrink.html"><b>🗜 Image Shrinker</b>Hit “max 2 MB” portal limits without TinyPNG</a>
+      <a href="https://navigatorslab.com/tools/scan.html"><b>📄 Scan & Screenshot Cleaner</b>Phone photos of documents → clean, straight PDFs</a>
+      <a href="https://navigatorslab.com/tools/sign.html"><b>✍ Local E-Sign Pad</b>Sign this lease tonight — not DocuSign</a>
+      <a href="https://navigatorslab.com/tools/receipts.html"><b>🧾 Receipts → One PDF</b>Shoebox of receipt photos → one date-sorted PDF</a>
+      <a href="https://navigatorslab.com/tools/ocr.html"><b>🔢 Receipt OCR → CSV</b>Read totals off receipt photos, export for expenses</a>
+      <a href="https://navigatorslab.com/tools/audio.html"><b>🎧 Audio Trimmer</b>Cut voice notes and clips on a waveform</a>
+      <a href="https://navigatorslab.com/tools/invoice.html"><b>🧮 Invoice / Quote Generator</b>One-person shops: hours in, clean PDF out</a>
+      <a href="https://navigatorslab.com/tools/rename.html"><b>🗂 Batch Rename & Sort</b>IMG_5847.jpg → 2026-09-05-receipt-home-depot.jpg</a>
+      <a href="https://navigatorslab.com/tools/printprep.html"><b>🖨 Print-Shop Prep</b>Exact sizes, bleed, DPI checks, print-ready PDF</a>
+      <a href="https://navigatorslab.com/tools/pdfpages.html"><b>📑 PDF Pages</b>Reorder, rotate, delete and extract PDF pages</a>
+      <a href="https://navigatorslab.com/tools/textdiff.html"><b>🔬 Text Diff</b>Compare two texts with word-level highlights</a>
+      <a href="https://navigatorslab.com/reimagine/"><b>🎨 Reimagine</b>Redesign any HTML page from its own content</a>
+      <a href="https://navigatorslab.com/tools/textstats.html"><b>📊 Text Stats</b>Words, reading time, readability, keyword density</a>
+      <a href="https://navigatorslab.com/pdf-studio/"><b>📜 PDF Studio</b>Edit the text inside your PDF — private, free, open source</a>
+      <a href="https://github.com/Kayforkind/design-health-action"><b>🩺 Design Health</b>18 deterministic design-quality checks for HTML — no LLM, no API key</a>
+      <a href="https://github.com/Kayforkind/skill-slice"><b>🔪 Skill Slice</b>Copy one Read-verified skill folder — a slice, not the pie</a>
+      <a href="https://github.com/Kayforkind/liecatchers"><b>🕵 liecatchers</b>Your agent said Done. Prove it — ten sensors, one RECEIPT.json</a>
+      <a href="https://github.com/Kayforkind/book-guide-mcp"><b>📚 Book Guide MCP</b>Ship improvements with your books — agents cite, run playbooks, learn</a>
+      <a href="https://github.com/Kayforkind/data-insights"><b>📡 Data Insights</b>Founder intelligence — daily & weekly tech signal briefs</a>
+      <a href="https://github.com/Kayforkind/iron-axe-legacy"><b>🪓 Iron Axe: Legacy</b>An original side-scrolling beat 'em up — Godot 4</a>
+  </div>
+
+  <footer>
+    <b>NavigatorsLab Tools</b> — free &amp; open source (MIT).
+    <a href="https://navigatorslab.com/tools/">Hub</a> · <a href="https://github.com/Kayforkind/NavigatorsLab-Tools">Source</a> ·
+    <a href="https://navigatorslab.com/tools/agents.html">Agent mode</a> · <a href="https://navigatorslab.com/tools/llms.txt">llms.txt</a> ·
+    MCP: <code>POST https://navigatorslab.com/tools/mcp</code>
+  </footer>
+</main>
+</body>
+</html>
